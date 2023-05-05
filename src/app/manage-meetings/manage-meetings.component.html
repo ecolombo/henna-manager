@@ -1,0 +1,48 @@
+<h3>Add Meeting</h3>
+<div>
+    <form [formGroup]="addMeetingForm" (ngSubmit)="addMeetingToDB()">
+
+        <p>
+            Meeting Title:
+            <input type="text" id='titleInput' placeholder="eg: Kickoff Meeting" formControlName='title' class='cif'> 
+        </p>
+
+        <p>
+            Meeting Location:
+            <input type="text" id='locationInput' placeholder="eg: Anna's Office" formControlName='location' class='cif'>
+        </p>
+    
+        <p>
+            Start:
+            <input type="datetime-local" id="startInput" formControlName='startDate' value="2023-06-01T00:00" min="2018-06-07T00:00" max="2049-12-31T00:00" class='cif'>
+        </p>
+
+        <p>
+            End:
+            <input type="datetime-local" id="endInput" formControlName="endDate" value="2023-06-01T00:00" min="2018-06-07T00:00" max="2049-12-31T00:00" class='cif'>
+        </p>
+        
+        
+        Participants:
+        <ul>
+            <li *ngFor="let participant of participants">
+                {{participant.name}} &nbsp;<button type="submit" id='deleteParticipant' class='cif'>Delete</button>
+            </li>
+            
+            <li>
+            <select formControlName="clientToAdd" class='cif'>
+            <option *ngFor="let client of allClients" >
+                {{client.name}}
+            </option>
+            </select>
+            &nbsp; <button type="submit" id='addParticipant' class='cif'>Add</button>
+            </li>
+        </ul>
+        
+
+        <p>
+            <br><br><br><button type="submit" class='cif'>CREATE MEETING</button>
+        </p> 
+    
+    </form>
+</div>

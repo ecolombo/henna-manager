@@ -1,0 +1,38 @@
+<h3>Add Client</h3>
+<div>
+    <form [formGroup]="addClientForm" (ngSubmit)="addClientToDB()">
+
+        <p>
+            Full Name:
+            <input type="text" id='fullNameInput' placeholder="eg: Will Smith" formControlName='fullName' class='cif'>
+        </p>
+
+        <p>
+            Email Address:
+            <input type="text" id='productNameInput' placeholder="eg: wsmith@mi6-hq.com" formControlName='productName' class='cif'>
+        </p>
+
+        <p>
+            Street and Number:
+            <input type="text" id='streetAndNrInput' placeholder="eg: 85 Albert Enbankment" formControlName='streetAndNr' class='cif'>
+        </p>
+
+        <p>
+            City:
+            <input type="text" id='cityInput' placeholder="eg: London" formControlName='city' class='cif'>
+        </p>
+
+        <p>
+            Country:
+            <input type="text" id='countryInput' placeholder="eg: United Kingdom" formControlName='country'  class='cif'>
+            </p>
+
+        <p>
+            Phone:
+            <input type="text" id='phoneInput' placeholder="eg: +44 20 8037 9111" formControlName='phone'  class='cif'>
+        </p>
+
+        <button type="submit" class='cif'>ADD CLIENT</button>
+
+    </form>
+</div>

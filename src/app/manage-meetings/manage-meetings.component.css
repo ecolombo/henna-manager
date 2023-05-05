@@ -1,0 +1,8 @@
+.cif {
+    width:auto;
+    display:inline;
+    border:1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px;
+    margin: 8px;                
+}
