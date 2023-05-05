@@ -1,0 +1,127 @@
+Reactive Form erstellen für
+- Client erstellen
+- Termin erstellen
+
+Basis:
+- Basis Angular Lesson 2 Demo 3 --> Reactive form
+- Bootstrap
+
+
+
+- SQL erstellt
+
+- Form Client erstellen (HTML/CSS/Bootstrap)
+- Form Meeting erstellen (HTML/CSS/Bootstrap)
+
+Angular:
+- Various components for client management 
+
+
+Log Angular:
+orientiere an "LVC_01_Project_Planning_and_Create_Project_Structure.pptx.pdf"
+
+ng new HennaManager
+
+verschiebe <style> Default-Inhalt in app.component.html nach app.component.css 
+lasse in in app.component.html nur noch <router-outlet></router-outlet>
+
+ng g c manageClients
+
+in app-routing.module.ts:
+import { ManageClientsComponent } from './manage-clients/manage-clients.component';
+const routes: Routes = [
+  { path: 'manageClients', component: manageClientsComponent }
+];
+
+in app.component.html füge hinzu:
+<ul><li><a routerLink='/manageClients'>Manage Clients</a></li></ul>
+
+orientiere an https://angular.io/guide/reactive-forms (siehe unter Formgroup) und 2.3.Assisted_Practice_Creating_Reactive_Form_with_Form_Control.docx
+
+in app-module.ts:
+import { ReactiveFormsModule } from '@angular/forms';
+imports [...] ReactiveFormsModule
+
+
+in manage-clients.component.ts:
+
+import { FormGroup, FormControl } from '@angular/forms';
+
+clientForm = new FormControl(
+    {
+      fullName: new FormControl(""),
+      email: new FormControl(""),
+      streetAndNr: new FormControl(""),
+      city: new FormControl(""),
+      country: new FormControl(""),
+      phone: new FormControl("")
+    }
+  );
+
+
+und:
+
+addClientToDB() {}
+
+
+in manage-clients.component.html:
+
+<h3>Add Client</h3>
+<div>
+    <form [formGroup]="clientForm" (ngSubmit)="addClientToDB()">
+
+        <p>Full Name:</p>
+        <input type="text" id='fullNameInput' placeholder="eg: Will Smith" formControlName='fullName'>
+
+        <p>Email Address:</p>
+        <input type="text" id='productNameInput' placeholder="eg: wsmith@mi6-hq.com" formControlName='productName'>
+
+        <p>Street and Number:</p>
+        <input type="text" id='streetAndNrInput' placeholder="eg: 85 Albert Enbankment" formControlName='streetAndNr'>
+
+        <p>City:</p>
+        <input type="text" id='cityInput' placeholder="eg: London" formControlName='city'>
+
+        <p>Country:</p>
+        <input type="text" id='countryInput' placeholder="eg: United Kingdom" formControlName='country'>
+
+        <p>phone:</p>
+        <input type="text" id='phoneInput' placeholder="eg: +44 20 8037 9111" formControlName='phone'>
+
+        <button type="submit">ADD CLIENT</button>
+
+    </form>
+</div>
+
+Analoge Vorgehensweise für manageMeetings Komponente
+
+StartDate/EndDate: verwende einfach die html inputs: 
+   <input type="datetime-local" id="endInput" formControlName="endDate" value="2023-06-01T00:00" min="2018-06-07T00:00" max="2049-12-31T00:00" class='cif'>
+
+definiere eine Klasse in css für die Inputs (alternativ: alle Inputs so formatieren) und füge zu jedem Tag hinzu: class='cif'
+.cif {
+    width:auto;
+    display:inline;
+    border:1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px;
+    margin: 8px;                
+}
+
+GIT (https://www.makeuseof.com/angular-website-host-netlify-github/)
+Erstelle auf git ein neues Repository "henna-manager" ohne readme, license und ignore Zeug auszuwählen
+im Angular Ordner:
+git init (notwendig? es gibt die Meldung "Reinitialized existing repository..."
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/ecolombo/henna-manager.git
+git push -u origin main
+
+
+
+todo:
+- bestehende Kunden/Termine anzeigen
+
+
+

@@ -1,0 +1,81 @@
+C:\Program Files\MySQL\MySQL Shell 8.0\bin\mysql.exe -u root -p
+
+SHOW DATABASES;
+
+CREATE DATABASE hennamanager;
+
+USE hennamanager;
+
+CREATE TABLE clients (
+    clientId            INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    fullName            VARCHAR(50) NOT NULL,
+    email               VARCHAR(50) NOT NULL,
+    streetAndNr         VARCHAR(50) DEFAULT NULL,
+    city                VARCHAR(50) DEFAULT NULL,
+    country             VARCHAR(50) DEFAULT NULL,
+    phone               VARCHAR(16) DEFAULT NULL  
+);
+
+CREATE TABLE meetings (
+    meetingId           INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    title               VARCHAR(50) NOT NULL,
+    location 		    VARCHAR(50) NOT NULL,
+    startDate           DATETIME NOT NULL,
+    endDate             DATETIME NOT NULL
+);
+
+CREATE TABLE meetingParticipants (
+    mpId                INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    meetingId           INT,
+    clientId            INT,
+    CONSTRAINT fk_meetingId FOREIGN KEY (meetingId)
+    REFERENCES meetings(meetingId),
+    CONSTRAINT fk_clientId FOREIGN KEY (clientId)
+    REFERENCES clients(clientId)
+);
+
+INSERT INTO clients VALUES (
+    NULL, 'James Bond', 'jbond@mi6-hq.com', '85 Albert Embankment', 'London', 'United Kingdom', '+44 20 8037 9111'
+);
+
+INSERT INTO clients VALUES (
+    NULL, 'Austin Powers', 'apowers@mi6-hq.com', '85 Albert Embankment', 'London', 'United Kingdom', '+44 20 8037 9112'
+);
+
+INSERT INTO meetings VALUES (
+    NULL, 'New HQ design kickoff meeting', 'Anna Arch. Office', '2023-11-01 10:30:00', '2023-11-01 12:00:00'
+);
+
+insert into meetingParticipants values ( NULL, 1, 1);
+insert into meetingParticipants values ( NULL, 1, 2);
+
+insert into meetingParticipants values (
+    NULL, 
+    select meetingId from meetings where title="World Takeover Kickoff Meeting",
+    select clientID from clients where fullName="James Bond"
+);
+
+
+SELECT meetings.title, meetings.startDate, clients.fullName FROM meetingParticipants     
+    INNER JOIN meetings on meetingParticipants.meetingId=meetings.meetingId
+    INNER JOIN clients on meetingParticipants.clientId=clients.clientId;
+
+
+
+# Verschiedene Abfragen:
+select meetingId from meetings where title="World Takeover Kickoff Meeting";
+select clientID from clients where fullName="James Bond";
+select clientID from clients where fullName="Austin Powers";
+
+
+# Umbauen:
+ALTER TABLE clients DROP COLUMN password;
+DELETE FROM clients WHERE clientId=0;
+
+
+# Aufräumen:
+DROP TABLE meetingParticipants;
+DROP TABLE meetings;
+DROP TABLE clients;
+DROP DATABASE hennamanager;
+SHOW DATABASES;
